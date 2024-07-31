@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+</head>
+<body>
+
+    <div class="question">
+        <p>What is the capital of France?</p>
+    </div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" id="option1" name="answer" value="Paris">
+            <label for="option1">\((2x+3)(x−5)\)</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="option2" name="answer" value="London">
+            <label for="option2">London</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="option3" name="answer" value="Rome">
+            <label for="option3">Rome</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="option4" name="answer" value="Berlin">
+            <label for="option4">Berlin</label>
+        </div>
+    </div>
+    <button onclick="checkAnswer()">Submit</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkAnswer() {
+            const options = document.getElementsByName('answer');
+            let selectedOption;
+            for (const option of options) {
+                if (option.checked) {
+                    selectedOption = option.value;
+                    break;
+                }
+            }
+
+            const resultElement = document.getElementById('result');
+            if (selectedOption === 'Paris') {
+                resultElement.textContent = 'Correct! The capital of France is Paris.';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Incorrect. Please try again.';
+                resultElement.style.color = 'red';
+            }
+        }
+    </script>
+
+</body>
+</html>

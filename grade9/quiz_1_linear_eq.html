@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. What is the capital of France?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q1a1" name="q1" value="Paris">
+                    <label for="q1a1">Paris</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1a2" name="q1" value="London">
+                    <label for="q1a2">London</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1a3" name="q1" value="Rome">
+                    <label for="q1a3">Rome</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1a4" name="q1" value="Berlin">
+                    <label for="q1a4">Berlin</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. Which planet is known as the Red Planet?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q2a1" name="q2" value="Mars">
+                    <label for="q2a1">Mars</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2a2" name="q2" value="Earth">
+                    <label for="q2a2">Earth</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2a3" name="q2" value="Jupiter">
+                    <label for="q2a3">Jupiter</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2a4" name="q2" value="Saturn">
+                    <label for="q2a4">Saturn</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. What is the largest ocean on Earth?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q3a1" name="q3" value="Pacific Ocean">
+                    <label for="q3a1">Pacific Ocean</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3a2" name="q3" value="Atlantic Ocean">
+                    <label for="q3a2">Atlantic Ocean</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3a3" name="q3" value="Indian Ocean">
+                    <label for="q3a3">Indian Ocean</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3a4" name="q3" value="Arctic Ocean">
+                    <label for="q3a4">Arctic Ocean</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="calculateScore()">Submit</button>
+        <button type="button" onclick="resetQuiz()">Start Over</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateScore() {
+            const answers = {
+                q1: 'Paris',
+                q2: 'Mars',
+                q3: 'Pacific Ocean'
+            };
+
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const resultElement = document.getElementById('result');
+
+            // Clear previous result classes
+            const labels = form.querySelectorAll('label');
+            labels.forEach(label => {
+                label.classList.remove('correct', 'incorrect');
+            });
+
+            for (const [question, answer] of Object.entries(answers)) {
+                const options = form.elements[question];
+                for (const option of options) {
+                    const label = form.querySelector(`label[for=${option.id}]`);
+                    if (option.checked) {
+                        if (option.value === answer) {
+                            score++;
+                            label.classList.add('correct');
+                        } else {
+                            label.classList.add('incorrect');
+                        }
+                    }
+                }
+            }
+
+            resultElement.textContent = `You scored ${score} out of ${Object.keys(answers).length}.`;
+        }
+
+        function resetQuiz() {
+            const form = document.getElementById('quizForm');
+            form.reset();
+
+            // Clear result and previous classes
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = '';
+
+            const labels = form.querySelectorAll('label');
+            labels.forEach(label => {
+                label.classList.remove('correct', 'incorrect');
+            });
+        }
+    </script>
+
+</body>
+</html>
